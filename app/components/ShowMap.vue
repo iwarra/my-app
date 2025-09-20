@@ -8,7 +8,6 @@ interface Props {
 }
 const props = defineProps<Props>();
 const map = ref<any>(null);
-const marker = ref<any>(null);
 
 onMounted(async () => {
 	const L = await import('leaflet');
@@ -20,11 +19,25 @@ onMounted(async () => {
 		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
 	}).addTo(map.value);
 
-	// Marker
-	marker.value = L.marker([props.lat, props.lng])
+	// Dot marker for main station
+	L.circleMarker([props.lat, props.lng], {
+		radius: 6, // size of the dot
+		color: 'red', // border color
+		fillColor: 'red',
+		fillOpacity: 0.7,
+	})
 		.addTo(map.value)
-		.bindPopup(`Weather station<br/>Lat: ${props.lat}, Lng: ${props.lng}`)
-		.openPopup();
+		.bindPopup(`Weather station<br/>Lat: ${props.lat}, Lng: ${props.lng}`);
+
+	// Dot marker for second location
+	L.circleMarker([59.3127, 18.0863], {
+		radius: 6,
+		color: 'blue',
+		fillColor: 'blue',
+		fillOpacity: 0.8,
+	})
+		.addTo(map.value)
+		.bindPopup('Second location');
 });
 
 //React to prop changes (from DB realtime updates)
