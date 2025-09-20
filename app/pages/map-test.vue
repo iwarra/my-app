@@ -40,7 +40,7 @@ onMounted(async () => {
 
 	marker.value = L.marker([coords.value.lat, coords.value.lng])
 		.addTo(map.value)
-		.bindPopup(`Weather station<br/>Lat: ${coords.value.lat}, Lng: ${coords.value.lng}`)
+		.bindPopup(`Vehicle 1<br/>Reg: ${coords.value.lat}`)
 		.openPopup();
 
 	// Simulate movement for demo
@@ -48,8 +48,8 @@ onMounted(async () => {
 	setInterval(() => {
 		counter++;
 		coords.value = {
-			lat: baseLat + counter * 0.0005, // ≈ 20 m north per update
-			lng: baseLng + Math.sin(counter / 5) * 0.0005, // small east/west wiggle
+			lat: baseLat + counter * 0.005, // ≈ 555? m north per update
+			lng: baseLng + Math.sin(counter / 5) * 0.005, // small east/west wiggle
 		};
 	}, 5000); // every 5 seconds for demo
 });
